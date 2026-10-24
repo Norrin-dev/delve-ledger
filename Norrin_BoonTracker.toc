@@ -1,0 +1,8 @@
+## Interface: 120105
+## Title: Norrin Boon Tracker
+## Notes: Shows your current Delve boons as on-screen text while inside a Delve.
+## Author: Norrin-Tichondrius (US)
+## Version: 1.0.0
+## SavedVariables: NorrinBoonTrackerDB
+
+Norrin_BoonTracker.lua
