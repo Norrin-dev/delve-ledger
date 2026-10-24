@@ -1,4 +1,4 @@
--- Norrin Boon Tracker
+-- Delve Ledger
 -- Reads the "Boons" aura (spell ID 1280098) in Delves and prints its stats as on-screen text.
 
 local ADDON_NAME = ...
@@ -45,7 +45,7 @@ local treasureSource = "none"
 ---------------------------------------------------------------------------
 -- Frame
 ---------------------------------------------------------------------------
-local f = CreateFrame("Frame", "NorrinBoonTrackerFrame", UIParent, "BackdropTemplate")
+local f = CreateFrame("Frame", "DelveLedgerFrame", UIParent, "BackdropTemplate")
 f:SetSize(160, 40)
 f:SetClampedToScreen(true)
 f:SetMovable(true)
@@ -120,7 +120,7 @@ local function CleanText(s)
     return s
 end
 
--- Show hidden escape codes and non-ASCII bytes (for /boons debug).
+-- Show hidden escape codes and non-ASCII bytes (for /dl debug).
 local function EscapeText(s)
     return (s:gsub("|", "||"):gsub("[\128-\255]", function(c) return ("\\%d"):format(c:byte()) end))
 end
@@ -346,8 +346,8 @@ end)
 f:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" then
         if arg1 ~= ADDON_NAME then return end
-        NorrinBoonTrackerDB = NorrinBoonTrackerDB or { locked = true }
-        db = NorrinBoonTrackerDB
+        DelveLedgerDB = DelveLedgerDB or { locked = true }
+        db = DelveLedgerDB
         ApplyPosition()
         ApplyLock()
         self:UnregisterEvent("ADDON_LOADED")
@@ -364,24 +364,25 @@ end)
 ---------------------------------------------------------------------------
 -- Slash commands
 ---------------------------------------------------------------------------
-SLASH_NORRINBOONTRACKER1 = "/boons"
-SlashCmdList.NORRINBOONTRACKER = function(msg)
+SLASH_DELVELEDGER1 = "/dl"
+SLASH_DELVELEDGER2 = "/delveledger"
+SlashCmdList.DELVELEDGER = function(msg)
     msg = (msg or ""):lower():match("^%s*(.-)%s*$")
     if msg == "unlock" then
         db.locked = false; ApplyLock(); testMode = true; Refresh()
-        print("|cffffd100Boon Tracker:|r unlocked - drag to move, /boons lock when done.")
+        print("|cffffd100Delve Ledger:|r unlocked - drag to move, /dl lock when done.")
     elseif msg == "lock" then
         db.locked = true; ApplyLock(); testMode = false; Refresh()
-        print("|cffffd100Boon Tracker:|r locked.")
+        print("|cffffd100Delve Ledger:|r locked.")
     elseif msg == "reset" then
         db.point, db.relPoint, db.x, db.y = nil, nil, nil, nil; ApplyPosition()
-        print("|cffffd100Boon Tracker:|r position reset.")
+        print("|cffffd100Delve Ledger:|r position reset.")
     elseif msg == "test" then
         testMode = not testMode; Refresh()
-        print("|cffffd100Boon Tracker:|r test mode " .. (testMode and "on" or "off") .. ".")
+        print("|cffffd100Delve Ledger:|r test mode " .. (testMode and "on" or "off") .. ".")
     elseif msg == "debug" then
         local name, _, difficultyID, _, _, _, _, instanceID = GetInstanceInfo()
-        print(("|cffffd100Boon Tracker:|r instance=%s (%s) difficulty=%s delve=%s labyrinth=%s")
+        print(("|cffffd100Delve Ledger:|r instance=%s (%s) difficulty=%s delve=%s labyrinth=%s")
             :format(tostring(name), tostring(instanceID), tostring(difficultyID),
                     tostring(InDelve()), tostring(InLabyrinth())))
         local okT, lines, src = pcall(ReadTreasure)
@@ -400,6 +401,6 @@ SlashCmdList.NORRINBOONTRACKER = function(msg)
             end
         end
     else
-        print("|cffffd100Boon Tracker:|r /boons unlock | lock | reset | test | debug")
+        print("|cffffd100Delve Ledger:|r /dl unlock | lock | reset | test | debug")
     end
 end

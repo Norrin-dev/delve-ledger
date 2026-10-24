@@ -1,8 +1,8 @@
 ## Interface: 120105
-## Title: Norrin Boon Tracker
+## Title: Delve Ledger
 ## Notes: On-screen Delve tracker: Boons stats in any Delve; Chambers, Hexmasks and Treasure Room rewards in The Labyrinth of Kindo'jan.
 ## Author: Norrin-Tichondrius (US)
 ## Version: 1.0.0
-## SavedVariables: NorrinBoonTrackerDB
+## SavedVariables: DelveLedgerDB
 
-Norrin_BoonTracker.lua
+DelveLedger.lua
