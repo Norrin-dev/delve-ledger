@@ -1,6 +1,6 @@
 ## Interface: 120105
 ## Title: Norrin Boon Tracker
-## Notes: Shows your current Delve boons as on-screen text while inside a Delve.
+## Notes: On-screen Delve tracker: Boons stats in any Delve; Chambers, Hexmasks and Treasure Room rewards in The Labyrinth of Kindo'jan.
 ## Author: Norrin-Tichondrius (US)
 ## Version: 1.0.0
 ## SavedVariables: NorrinBoonTrackerDB
